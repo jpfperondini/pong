@@ -18,7 +18,12 @@ winner = {
     paddle2Won = false
 }
 
+sounds = {}
+
 function love.load()
+    sounds.paddle = love.audio.newSource("assets/paddle.wav")
+    sounds.wall = love.audio.newSource("assets/wall.wav")
+    sounds.point = love.audio.newSource("assets/point.wav")
     love.window.setMode(SCREEN_WIDTH, SCREEN_HEIGHT, {
         fullscreen = false,
         resizable = false,
@@ -47,16 +52,18 @@ function love.update(dt)
     paddle2:handleMovement(dt)
 
     -- Updates ball
-    ball:update(dt)
+    ball:update(dt, sounds.wall)
 
     -- Collision
-    collision:check(ball.position, ball.speed, paddle1.position, paddle2.position)
+    collision:check(ball.position, ball.speed, paddle1.position, paddle2.position, sounds.paddle)
 end
 
 function checkScore(ballPos)
     if ballPos.x <= -PADDLE_WIDTH then
+        love.audio.play(sounds.point)
         winner.paddle2Won = true
     elseif ballPos.x >= SCREEN_WIDTH then
+        love.audio.play(sounds.point)
         winner.paddle1Won = true
     end
 end

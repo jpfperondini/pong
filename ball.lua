@@ -11,8 +11,8 @@ function Ball:new(x, y, speed)
     return setmetatable(newObj, self)
 end
 
-function Ball:update(dt)
-    handleOutOfBounds(ball.position, ball.speed)
+function Ball:update(dt, sound)
+    handleOutOfBounds(ball.position, ball.speed, sound)
 
     self.position.x = self.position.x + (self.speed.x * dt)
     self.position.y = self.position.y + (self.speed.y * dt)
@@ -22,8 +22,9 @@ function Ball:draw()
     love.graphics.rectangle("fill", self.position.x, self.position.y, BALL_SIZE, BALL_SIZE)
 end
 
-function handleOutOfBounds(ballPos, ballSpeed)
+function handleOutOfBounds(ballPos, ballSpeed, sound)
     if ballPos.y <= 0 or ballPos.y >= SCREEN_HEIGHT - BALL_SIZE then
+        love.audio.play(sound)
         ballSpeed.y = -ballSpeed.y
     end
 end
