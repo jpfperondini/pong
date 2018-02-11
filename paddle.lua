@@ -19,9 +19,9 @@ function Paddle:draw()
 end
 
 function Paddle:handleMovement(dt)
-    if love.keyboard.isDown(self.controls.down) then
+    if love.keyboard.isDown(self.controls.down) and self.position.y + PADDLE_HEIGHT + 5 < SCREEN_HEIGHT then
         self.position.y = self.position.y + (PADDLE_SPEED * dt)
-    elseif love.keyboard.isDown(self.controls.up) then
+    elseif love.keyboard.isDown(self.controls.up) and self.position.y >= 5 then
         self.position.y = self.position.y - (PADDLE_SPEED * dt)
     end
 end
