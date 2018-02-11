@@ -80,7 +80,6 @@ function drawDashedLine()
     local y1 = SCREEN_HEIGHT
     local size = 10
     for i = y0, y1, size do
-        print(i)
         love.graphics.line(x, i, x, i + size / 2)
     end
 end
