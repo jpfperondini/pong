@@ -15,7 +15,7 @@ end
 
 
 function Paddle:draw()
-    love.graphics.rectangle("fill", self.position.x, self.position.y, PADDLE_WIDTH, PADDLE_HEIGHT)
+    love.graphics.rectangle("line", self.position.x, self.position.y, PADDLE_WIDTH, PADDLE_HEIGHT)
 end
 
 function Paddle:handleMovement(dt)

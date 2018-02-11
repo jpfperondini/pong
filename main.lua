@@ -50,6 +50,8 @@ end
 
 
 function love.draw()
+    drawDashedLine()
+
     -- Draws winner if any
     if score.paddle2Won or score.paddle1Won then
         love.graphics.print(score.paddle2Won and "PLAYER 2 WON!" or "PLAYER 1 WON",
@@ -61,4 +63,15 @@ function love.draw()
     ball:draw()
     paddle1:draw()
     paddle2:draw()
+end
+
+function drawDashedLine()
+    local x = SCREEN_WIDTH / 2
+    local y0 = 0
+    local y1 = SCREEN_HEIGHT
+    local size = 10
+    for i = y0, y1, size do
+        print(i)
+        love.graphics.line(x, i, x, i + size / 2)
+    end
 end
