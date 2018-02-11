@@ -16,6 +16,7 @@ paddle2 = Paddle:new(SCREEN_WIDTH - PADDLE_WIDTH - PADDLE_PADDING,
 
 
 sounds = {}
+fonts = {}
 
 function love.load()
     sounds.paddle = love.audio.newSource("assets/paddle.wav")
@@ -26,7 +27,8 @@ function love.load()
         resizable = false,
         vsync = true
     })
-    love.graphics.newFont(24)
+    fonts.score = love.graphics.newFont(32)
+    fonts.label = love.graphics.newFont()
 end
 
 function love.update(dt)
@@ -35,6 +37,8 @@ function love.update(dt)
 
     -- Checks if the a player scores
     score:check(ball.position)
+
+
 
     -- Handles players input
     paddle1:handleMovement(dt)
@@ -53,12 +57,17 @@ function love.draw()
     drawDashedLine()
 
     -- Draws winner if any
-    if score.paddle2Won or score.paddle1Won then
+    if score.isFinished then
+        love.graphics.setFont(fonts.label)
         love.graphics.print(score.paddle2Won and "PLAYER 2 WON!" or "PLAYER 1 WON",
             (SCREEN_WIDTH - 100) / 2, SCREEN_HEIGHT / 2)
         love.graphics.print("Press space to play again",
             (SCREEN_WIDTH - 156) / 2, (SCREEN_HEIGHT + 100) / 2)
     end
+
+    love.graphics.setFont(fonts.score)
+    love.graphics.print(score.player1, SCREEN_WIDTH / 4, 10)
+    love.graphics.print(score.player2, 3 * SCREEN_WIDTH / 4, 10)
 
     ball:draw()
     paddle1:draw()
